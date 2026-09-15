@@ -68,6 +68,17 @@ def upload_material(
     
     return db_material
 
+@app.get("/api/clear_all")
+def clear_all(db: Session = Depends(get_db)):
+    db.query(models.Question).delete()
+    db.query(models.Material).delete()
+    db.commit()
+    import shutil
+    import os
+    if os.path.exists("./qdrant_data"):
+        shutil.rmtree("./qdrant_data")
+    return {"message": "All materials and questions have been deleted successfully. You can now use the app fresh!"}
+
 @app.post("/api/materials", response_model=schemas.Material)
 def create_material(material: schemas.MaterialCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     db_material = models.Material(title=material.title, content=material.content)
