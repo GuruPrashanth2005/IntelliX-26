@@ -24,9 +24,6 @@ export default function Home() {
           <div className="hidden md:flex text-slate-400 text-sm font-medium items-center gap-2">
             by <span className="text-white font-bold tracking-wide">Binary Brains</span>
           </div>
-          <Link href="/teacher" className="px-5 py-2.5 text-sm font-medium text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all">
-            Login
-          </Link>
         </div>
       </nav>
 
@@ -147,30 +144,34 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-500/20 to-fuchsia-500/20 p-1 rounded-3xl">
-              <div className="bg-slate-900 rounded-[22px] p-8 h-full">
-                <h3 className="text-2xl font-bold text-white mb-6">Portal Access</h3>
-                <div className="space-y-4">
-                  <Link href="/teacher" className="flex items-center justify-between p-6 bg-slate-950 border border-slate-800 rounded-2xl hover:border-indigo-500 transition-colors group">
-                    <div className="flex items-center space-x-4">
-                      <BookOpen className="w-8 h-8 text-indigo-400" />
+            <div className="bg-gradient-to-br from-indigo-500/40 to-fuchsia-500/40 p-1.5 rounded-3xl shadow-[0_0_50px_-15px_rgba(99,102,241,0.5)]">
+              <div className="bg-slate-900 rounded-[22px] p-8 h-full flex flex-col justify-center">
+                <h3 className="text-3xl font-bold text-white mb-8 text-center">Portal Access</h3>
+                <div className="space-y-6">
+                  <Link href="/teacher" className="flex items-center justify-between p-6 bg-slate-950 border-2 border-indigo-500/30 rounded-2xl hover:border-indigo-400 hover:bg-indigo-500/10 shadow-[0_0_30px_-10px_rgba(99,102,241,0.2)] transition-all group scale-100 hover:scale-105">
+                    <div className="flex items-center space-x-5">
+                      <div className="p-4 bg-indigo-500/20 rounded-xl group-hover:bg-indigo-500/30 transition-colors">
+                        <BookOpen className="w-10 h-10 text-indigo-400 group-hover:text-indigo-300" />
+                      </div>
                       <div className="text-left">
-                        <div className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">Teacher Portal</div>
-                        <div className="text-sm text-slate-500">Upload & Manage</div>
+                        <div className="text-xl font-extrabold text-white group-hover:text-indigo-300 transition-colors tracking-wide">Teacher Portal</div>
+                        <div className="text-base text-slate-400 mt-1 font-medium">Upload & Manage Materials</div>
                       </div>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-slate-600 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-6 h-6 text-indigo-500 group-hover:text-indigo-300 group-hover:translate-x-2 transition-all" />
                   </Link>
 
-                  <Link href="/student" className="flex items-center justify-between p-6 bg-slate-950 border border-slate-800 rounded-2xl hover:border-fuchsia-500 transition-colors group">
-                    <div className="flex items-center space-x-4">
-                      <GraduationCap className="w-8 h-8 text-fuchsia-400" />
+                  <Link href="/student" className="flex items-center justify-between p-6 bg-slate-950 border-2 border-fuchsia-500/30 rounded-2xl hover:border-fuchsia-400 hover:bg-fuchsia-500/10 shadow-[0_0_30px_-10px_rgba(217,70,239,0.2)] transition-all group scale-100 hover:scale-105">
+                    <div className="flex items-center space-x-5">
+                      <div className="p-4 bg-fuchsia-500/20 rounded-xl group-hover:bg-fuchsia-500/30 transition-colors">
+                        <GraduationCap className="w-10 h-10 text-fuchsia-400 group-hover:text-fuchsia-300" />
+                      </div>
                       <div className="text-left">
-                        <div className="text-lg font-bold text-white group-hover:text-fuchsia-400 transition-colors">Student Portal</div>
-                        <div className="text-sm text-slate-500">Submit & Evaluate</div>
+                        <div className="text-xl font-extrabold text-white group-hover:text-fuchsia-300 transition-colors tracking-wide">Student Portal</div>
+                        <div className="text-base text-slate-400 mt-1 font-medium">Submit & Evaluate Answers</div>
                       </div>
                     </div>
-                    <ArrowRight className="w-5 h-5 text-slate-600 group-hover:text-fuchsia-400 group-hover:translate-x-1 transition-all" />
+                    <ArrowRight className="w-6 h-6 text-fuchsia-500 group-hover:text-fuchsia-300 group-hover:translate-x-2 transition-all" />
                   </Link>
                 </div>
               </div>
