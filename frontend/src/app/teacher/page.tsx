@@ -93,16 +93,21 @@ export default function TeacherPortal() {
     <div className="min-h-screen bg-slate-950 text-slate-100 p-8 font-sans selection:bg-indigo-500/30">
       <div className="max-w-5xl mx-auto space-y-12">
         {/* Header */}
-        <header className="flex items-center space-x-4 pb-6 border-b border-slate-800">
-          <div className="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
-            <LayoutDashboard className="w-8 h-8 text-indigo-400" />
+        <header className="flex items-center justify-between pb-6 border-b border-slate-800">
+          <div className="flex items-center space-x-4">
+            <div className="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+              <LayoutDashboard className="w-8 h-8 text-indigo-400" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                Teacher Portal
+              </h1>
+              <p className="text-slate-400 text-sm mt-1">Upload study materials and assign questions.</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Teacher Portal
-            </h1>
-            <p className="text-slate-400 text-sm mt-1">Upload study materials and assign questions.</p>
-          </div>
+          <a href="/teacher/dashboard" className="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl border border-slate-700 transition-all flex items-center space-x-2">
+            <span>Manage Materials</span>
+          </a>
         </header>
 
         <div className="grid md:grid-cols-2 gap-8">

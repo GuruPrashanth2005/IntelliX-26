@@ -152,3 +152,31 @@ def verify_answer(request: schemas.VerificationRequest, db: Session = Depends(ge
         overall_label=result["overall_label"],
         explanation=result["explanation"]
     )
+
+@app.delete("/api/materials/{material_id}")
+def delete_material(material_id: int, db: Session = Depends(get_db)):
+    db_material = db.query(models.Material).filter(models.Material.id == material_id).first()
+    if not db_material:
+        raise HTTPException(status_code=404, detail="Material not found")
+    
+    # Delete from Qdrant
+    collection_name = f"material_{material_id}"
+    try:
+        if rag.qdrant_client.collection_exists(collection_name):
+            rag.qdrant_client.delete_collection(collection_name=collection_name)
+    except Exception as e:
+        print(f"Failed to delete Qdrant collection: {e}")
+        
+    db.delete(db_material)
+    db.commit()
+    return {"message": "Material deleted successfully"}
+
+@app.delete("/api/questions/{question_id}")
+def delete_question(question_id: int, db: Session = Depends(get_db)):
+    db_question = db.query(models.Question).filter(models.Question.id == question_id).first()
+    if not db_question:
+        raise HTTPException(status_code=404, detail="Question not found")
+        
+    db.delete(db_question)
+    db.commit()
+    return {"message": "Question deleted successfully"}
