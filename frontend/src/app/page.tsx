@@ -107,12 +107,12 @@ export default function Home() {
           <p className="text-center text-xs font-semibold text-slate-500 uppercase tracking-widest mb-6">
             Powered by state-of-the-art AI infrastructure
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12 opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
-            <div className="flex items-center space-x-2 text-lg font-bold text-white"><Code2 className="w-5 h-5 text-indigo-500" /><span>Next.js</span></div>
-            <div className="flex items-center space-x-2 text-lg font-bold text-white"><Zap className="w-5 h-5 text-emerald-500" /><span>FastAPI</span></div>
-            <div className="flex items-center space-x-2 text-lg font-bold text-white"><Database className="w-5 h-5 text-cyan-500" /><span>Qdrant</span></div>
-            <div className="flex items-center space-x-2 text-lg font-bold text-white"><BrainCircuit className="w-5 h-5 text-orange-500" /><span>Groq LLMs</span></div>
-            <div className="flex items-center space-x-2 text-lg font-bold text-white"><Sparkles className="w-5 h-5 text-blue-500" /><span>Gemini</span></div>
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12 transition-all duration-500">
+            <div className="flex items-center space-x-2 text-lg font-bold text-white drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]"><Code2 className="w-5 h-5 text-indigo-500" /><span>Next.js</span></div>
+            <div className="flex items-center space-x-2 text-lg font-bold text-white drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"><Zap className="w-5 h-5 text-emerald-500" /><span>FastAPI</span></div>
+            <div className="flex items-center space-x-2 text-lg font-bold text-white drop-shadow-[0_0_8px_rgba(6,182,212,0.5)]"><Database className="w-5 h-5 text-cyan-500" /><span>Qdrant</span></div>
+            <div className="flex items-center space-x-2 text-lg font-bold text-white drop-shadow-[0_0_8px_rgba(249,115,22,0.5)]"><BrainCircuit className="w-5 h-5 text-orange-500" /><span>Groq LLMs</span></div>
+            <div className="flex items-center space-x-2 text-lg font-bold text-white drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"><Sparkles className="w-5 h-5 text-blue-500" /><span>Gemini</span></div>
           </div>
         </div>
       </motion.section>
