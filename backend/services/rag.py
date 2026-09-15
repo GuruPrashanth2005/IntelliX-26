@@ -2,10 +2,10 @@ import os
 import json
 import re
 from groq import Groq
+import google.generativeai as genai
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct
 from llama_index.core.node_parser import SentenceSplitter
-from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -13,19 +13,13 @@ load_dotenv()
 # Initialize Qdrant Client (Persistent storage so vectors survive server restarts)
 qdrant_client = QdrantClient(path="./qdrant_data")
 
-# Configure Groq
+# Configure Groq (for text generation/verification)
 groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-# Global variables for lazy loading
-embedding_model = None
-EMBEDDING_DIM = 384
+# Configure Gemini (for embeddings)
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
-def get_embedding_model():
-    global embedding_model
-    if embedding_model is None:
-        print("Loading Embedding Model: sentence-transformers/all-MiniLM-L6-v2")
-        embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-    return embedding_model
+EMBEDDING_DIM = 768 # Gemini embedding-001 uses 768 dimensions
 
 def init_collection(collection_name: str):
     if not qdrant_client.collection_exists(collection_name):
@@ -42,11 +36,16 @@ def ingest_material(material_id: int, content: str):
     splitter = SentenceSplitter(chunk_size=512, chunk_overlap=50)
     chunks = splitter.split_text(content)
     
-    # 2. Embedding & Storage
-    model = get_embedding_model()
+    # 2. Embedding & Storage using Gemini API
     points = []
     for idx, chunk in enumerate(chunks):
-        embedding = model.encode(chunk).tolist()
+        response = genai.embed_content(
+            model="models/embedding-001",
+            content=chunk,
+            task_type="retrieval_document",
+        )
+        embedding = response['embedding']
+        
         points.append(
             PointStruct(
                 id=idx,
@@ -74,9 +73,13 @@ def verify_answer(material_id: int, question: str, answer: str) -> dict:
             "explanation": "No material chunks available."
         }
     
-    # 1. Embed Answer for Retrieval
-    model = get_embedding_model()
-    query_vector = model.encode(answer).tolist()
+    # 1. Embed Answer for Retrieval using Gemini API
+    response = genai.embed_content(
+        model="models/embedding-001",
+        content=answer,
+        task_type="retrieval_query",
+    )
+    query_vector = response['embedding']
     
     # 2. Retrieve top-3 chunks
     search_results = qdrant_client.query_points(
