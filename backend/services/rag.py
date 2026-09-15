@@ -40,7 +40,7 @@ def ingest_material(material_id: int, content: str):
     points = []
     for idx, chunk in enumerate(chunks):
         response = genai.embed_content(
-            model="models/embedding-001",
+            model="models/gemini-embedding-001",
             content=chunk,
             task_type="retrieval_document",
         )
@@ -76,7 +76,7 @@ def verify_answer(material_id: int, question: str, answer: str) -> dict:
         
         # 1. Embed Answer for Retrieval using Gemini API
         response = genai.embed_content(
-            model="models/embedding-001",
+            model="models/gemini-embedding-001",
             content=answer,
             task_type="retrieval_query",
         )
