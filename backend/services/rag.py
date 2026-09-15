@@ -19,7 +19,7 @@ groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 # Configure Gemini (for embeddings)
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
-EMBEDDING_DIM = 768 # Gemini embedding-001 uses 768 dimensions
+EMBEDDING_DIM = 3072 # gemini-embedding-001 uses 3072 dimensions
 
 def init_collection(collection_name: str):
     if not qdrant_client.collection_exists(collection_name):
