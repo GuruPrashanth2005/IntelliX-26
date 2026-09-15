@@ -167,6 +167,9 @@ def delete_material(material_id: int, db: Session = Depends(get_db)):
     except Exception as e:
         print(f"Failed to delete Qdrant collection: {e}")
         
+    # Explicitly delete associated questions to prevent foreign key constraint violations
+    db.query(models.Question).filter(models.Question.material_id == material_id).delete(synchronize_session=False)
+    
     db.delete(db_material)
     db.commit()
     return {"message": "Material deleted successfully"}
