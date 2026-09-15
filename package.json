@@ -1,0 +1,11 @@
+{
+  "name": "intellix-root",
+  "version": "1.0.0",
+  "description": "Root package for running IntelliX frontend and backend concurrently",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"cd backend && .\\venv\\Scripts\\Activate && uvicorn main:app --reload --port 8000\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

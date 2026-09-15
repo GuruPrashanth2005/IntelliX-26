@@ -1,0 +1,7 @@
+node_modules/
+.next/
+venv/
+__pycache__/
+.env
+qdrant_data/
+.DS_Store

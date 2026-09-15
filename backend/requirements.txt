@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+pymupdf
+python-docx
+spacy
+llama-index
+sentence-transformers
+qdrant-client
+google-generativeai
