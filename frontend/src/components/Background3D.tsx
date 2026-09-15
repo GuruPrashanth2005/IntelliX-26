@@ -45,17 +45,6 @@ function Scene() {
             opacity={0.3} 
           />
         </Icosahedron>
-        
-        {/* Inner solid core */}
-        <Icosahedron args={[0.8, 0]} position={[0, 0, 0]}>
-          <meshStandardMaterial 
-            color="#d946ef" // Fuchsia
-            emissive="#d946ef"
-            emissiveIntensity={0.5}
-            transparent
-            opacity={0.8}
-          />
-        </Icosahedron>
       </Float>
 
       {/* Floating Vector Embeddings / Particles */}
