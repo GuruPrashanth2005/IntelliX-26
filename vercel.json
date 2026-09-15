@@ -3,10 +3,6 @@
     "frontend": {
       "root": "frontend",
       "framework": "nextjs"
-    },
-    "backend": {
-      "root": "backend",
-      "framework": "fastapi"
     }
   }
 }
