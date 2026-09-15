@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { BookOpen, GraduationCap, BrainCircuit, ArrowRight, Sparkles, Database, Code2, Zap, Search, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import Background3D from "@/components/Background3D";
 
 export default function Home() {
   const fadeUp = {
@@ -23,6 +24,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col relative overflow-hidden selection:bg-cyan-500/30">
       
+      {/* 3D Interactive Background */}
+      <Background3D />
+
       {/* Animated Background glow effects */}
       <motion.div 
         animate={{ 
