@@ -129,7 +129,7 @@ Respond ONLY with a valid JSON object in the following format:
 """
         chat_completion = groq_client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
-            model="llama3-8b-8192",  # Fixed the Groq model name!
+            model="qwen/qwen3.8-27b",
             temperature=0,
             response_format={"type": "json_object"}
         )
