@@ -60,7 +60,7 @@ function Scene() {
 
       {/* Floating Vector Embeddings / Particles */}
       <Sparkles 
-        count={300} 
+        count={150} 
         scale={15} 
         size={3} 
         speed={0.4} 
@@ -68,7 +68,7 @@ function Scene() {
         color="#22d3ee" // Cyan
       />
       <Sparkles 
-        count={200} 
+        count={100} 
         scale={20} 
         size={4} 
         speed={0.2} 
@@ -81,8 +81,12 @@ function Scene() {
 
 export default function Background3D() {
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-80 mix-blend-screen">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+    <div className="fixed inset-0 w-screen h-screen pointer-events-none z-0 opacity-60 mix-blend-screen">
+      <Canvas 
+        camera={{ position: [0, 0, 5], fov: 45 }}
+        dpr={[1, 1.5]} // Limit pixel ratio for massive performance boost
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 10]} intensity={1} color="#6366f1" />
         <directionalLight position={[-10, -10, -10]} intensity={0.5} color="#d946ef" />
