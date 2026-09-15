@@ -2,16 +2,16 @@
 
 import Link from "next/link";
 import { BookOpen, GraduationCap, BrainCircuit, ArrowRight, Sparkles, Database, Code2, Zap, Search, ShieldCheck } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Background3D from "@/components/Background3D";
 
 export default function Home() {
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
