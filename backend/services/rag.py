@@ -62,45 +62,46 @@ def ingest_material(material_id: int, content: str):
     print(f"Ingested {len(points)} chunks into {collection_name}")
 
 def verify_answer(material_id: int, question: str, answer: str) -> dict:
-    collection_name = f"material_{material_id}"
-    
-    # Check if collection exists
-    if not qdrant_client.collection_exists(collection_name):
-        return {
-            "status": "error",
-            "message": "Material has not been processed for RAG yet.",
-            "overall_label": "NOT FOUND",
-            "explanation": "No material chunks available."
-        }
-    
-    # 1. Embed Answer for Retrieval using Gemini API
-    response = genai.embed_content(
-        model="models/embedding-001",
-        content=answer,
-        task_type="retrieval_query",
-    )
-    query_vector = response['embedding']
-    
-    # 2. Retrieve top-3 chunks
-    search_results = qdrant_client.query_points(
-        collection_name=collection_name,
-        query=query_vector,
-        limit=3
-    ).points
-    
-    if not search_results:
-        return {
-            "status": "success",
-            "message": "Verification complete.",
-            "overall_label": "NOT FOUND",
-            "explanation": "No relevant evidence was found in the source material."
-        }
-    
-    # Combine retrieved chunks into evidence premise
-    evidence_text = "\n\n".join([f"Chunk {i+1}:\n{hit.payload['text']}" for i, hit in enumerate(search_results)])
-    
-    # 3. Verification using Groq
-    prompt = f"""You are an intelligent educational AI assistant.
+    try:
+        collection_name = f"material_{material_id}"
+        
+        # Check if collection exists
+        if not qdrant_client.collection_exists(collection_name):
+            return {
+                "status": "error",
+                "message": "Material has not been processed for RAG yet.",
+                "overall_label": "NOT FOUND",
+                "explanation": "No material chunks available."
+            }
+        
+        # 1. Embed Answer for Retrieval using Gemini API
+        response = genai.embed_content(
+            model="models/embedding-001",
+            content=answer,
+            task_type="retrieval_query",
+        )
+        query_vector = response['embedding']
+        
+        # 2. Retrieve top-3 chunks
+        search_results = qdrant_client.query_points(
+            collection_name=collection_name,
+            query=query_vector,
+            limit=3
+        ).points
+        
+        if not search_results:
+            return {
+                "status": "success",
+                "message": "Verification complete.",
+                "overall_label": "NOT FOUND",
+                "explanation": "No relevant evidence was found in the source material."
+            }
+        
+        # Combine retrieved chunks into evidence premise
+        evidence_text = "\n\n".join([f"Chunk {i+1}:\n{hit.payload['text']}" for i, hit in enumerate(search_results)])
+        
+        # 3. Verification using Groq
+        prompt = f"""You are an intelligent educational AI assistant.
 Your task is to verify a student's answer against the provided supported material.
 
 Supported Material (Context):
@@ -126,10 +127,9 @@ Respond ONLY with a valid JSON object in the following format:
     "explanation": "Your detailed comparison and explanation here."
 }}
 """
-    try:
         chat_completion = groq_client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
-            model="qwen/qwen3.8-27b",
+            model="llama3-8b-8192",  # Fixed the Groq model name!
             temperature=0,
             response_format={"type": "json_object"}
         )
@@ -143,14 +143,14 @@ Respond ONLY with a valid JSON object in the following format:
             "overall_label": result_data.get("overall_label", "NOT FOUND"),
             "explanation": result_data.get("explanation", "Verification failed to generate an explanation.")
         }
-        
+            
     except Exception as e:
         print(f"Verification error: {e}")
         return {
             "status": "error",
             "message": "Failed to verify answer",
             "overall_label": "ERROR",
-            "explanation": str(e)
+            "explanation": f"Internal Server Error: {str(e)}"
         }
 
 def extract_questions_with_ai(raw_text: str) -> list[str]:
