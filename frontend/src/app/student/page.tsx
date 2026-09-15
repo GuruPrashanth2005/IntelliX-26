@@ -15,7 +15,7 @@ export default function StudentPortal() {
 
   const fetchQuestions = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/questions");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/questions`);
       if (res.ok) {
         const data = await res.json();
         setQuestions(data);
@@ -31,7 +31,7 @@ export default function StudentPortal() {
     setLoading(true);
     setResult(null);
     try {
-      const res = await fetch("http://localhost:8000/api/verify", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

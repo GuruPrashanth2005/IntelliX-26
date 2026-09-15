@@ -18,7 +18,7 @@ export default function TeacherPortal() {
 
   const fetchMaterials = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/materials");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/materials`);
       if (res.ok) {
         const data = await res.json();
         setMaterials(data);
@@ -36,12 +36,12 @@ export default function TeacherPortal() {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("file", file);
-        await fetch("http://localhost:8000/api/upload", {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/upload`, {
           method: "POST",
           body: formData,
         });
       } else {
-        await fetch("http://localhost:8000/api/materials", {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/materials`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ title, content }),
@@ -69,12 +69,12 @@ export default function TeacherPortal() {
       if (file) {
         const formData = new FormData();
         formData.append("file", file);
-        await fetch(`http://localhost:8000/api/materials/${selectedMaterialId}/questions/upload`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/materials/${selectedMaterialId}/questions/upload`, {
           method: "POST",
           body: formData,
         });
       } else {
-        await fetch(`http://localhost:8000/api/materials/${selectedMaterialId}/questions`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/materials/${selectedMaterialId}/questions`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question_text: questionText }),
